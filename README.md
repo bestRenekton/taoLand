@@ -1,5 +1,5 @@
 # taoLand
->博客：vue+node+mongodb
+>博客：vue全家桶+node+mongodb
 
 + 下载到本地
 	+ `git clone https://github.com/bestRenekton/taoLand.git` 

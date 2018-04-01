@@ -3,7 +3,7 @@
     <div v-if="!loading">
       <input v-model="name" placeholder="请输入用户名">
       <input v-model="password" placeholder="请输入密码" type="password">
-      <!-- <el-button @click="signUp">Sign Up</el-button> -->
+      <el-button class="sign" @click="signUp">Sign Up</el-button>
       <el-button class="sign" type="primary" @click="signIn">Sign In</el-button>
     </div>
     <div v-else class="loading">
@@ -16,21 +16,21 @@
 export default {
   data () {
     return {
-      name: 'admin',
-      password: 'admin',
+      name: '',
+      password: '',
       loading:false
     }
   },
   methods: {
-    // signUp: function () {
-    //   this.$axios.post('/api/admin/signUp', {'name': this.name, 'password': this.password})
-    //     .then((response) => {
-    //       alert(response.data.msg);
-    //     })
-    //     .catch((reject) => {
-    //       console.log(reject)
-    //     })
-    // },
+    signUp: function () {
+      this.$axios.post('/api/admin/signUp', {'name': this.name, 'password': this.password})
+        .then((response) => {
+          alert(response.data.msg);
+        })
+        .catch((reject) => {
+          console.log(reject)
+        })
+    },
     signIn: function () {
       this.$axios.post('/api/admin/signIn', {'name': this.name, 'password': this.password})
         .then((response) => {
@@ -103,6 +103,7 @@ export default {
       padding: .78rem 1.3rem;
       text-decoration: none;
       text-shadow: none;
+      margin: 0 0 10px;
       width: 300px;
       &:hover{
        background: hsla(0,0%,100%,.28);        

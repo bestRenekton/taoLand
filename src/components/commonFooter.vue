@@ -2,11 +2,11 @@
   <footer>
     <div class="wrapper">
       <p>本站记录我前端之旅的沿途风景！  Contact me at: 
-        <a href=""><i class="iconfont icon-github"></i></a>
-        <a href=""><i class="iconfont icon-zhihu"></i></a>
+        <a target="_blank" href="https://github.com/bestRenekton"><i class="iconfont icon-github"></i></a>
+        <a target="_blank" href="https://www.zhihu.com/people/yang-pang-zi-40/activities"><i class="iconfont icon-zhihu"></i></a>
       </p>
       <p>本站总访问量165349次，本站访客数66739人次，本文总阅读量6114次</p>
-      <p>Site powered by Jekyll & Github Pages. Theme designed by YYT.</p>
+      <p>taoLand built with vue and node.Theme designed by YYT.</p>
     </div>
     <transition name="slide-fade">
       <div v-if="isTop" class="toTop iconfont icon-top" @click="toTop"></div>

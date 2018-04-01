@@ -15,17 +15,17 @@
                   <div class="row">
                     <p>行路有良友，便是捷径。带上我吧，一起去看更大的世界</p>
                     <div class="icons">
-                      <a href=""><i class="iconfont icon-github"></i></a>
-                      <a href=""><i class="iconfont icon-zhihu"></i></a>
-                      <a href=""><i class="iconfont icon-yinle"></i></a>
-                      <a href=""><i class="iconfont icon-weibo"></i></a>
+                      <a href="https://github.com/bestRenekton" target="_blank"><i class="iconfont icon-github"></i></a>
+                      <a href="https://www.zhihu.com/people/yang-pang-zi-40/activities" target="_blank"><i class="iconfont icon-zhihu"></i></a>
+                      <a href="http://music.163.com/#/user/home?id=272667179" target="_blank"><i class="iconfont icon-yinle"></i></a>
+                      <a href="https://weibo.com/u/5746403289?refer_flag=1005055010_&is_all=1" target="_blank"><i class="iconfont icon-weibo"></i></a>
                     </div>
                   </div>
                 </div>
                 <div class="card">
                   <p class="title">FRIENDS</p>
                   <div class="row">
-                    <a class="link" href="dff" target="_blank">雷全的个人网站</a>
+                    <a class="link" href="dff" target="_blank">xxxxx的博客</a>
                     <a class="link" href="dff" target="_blank">咕咚</a>
                     <a class="link" href="dff" target="_blank">Secret Blog</a>
                     <a class="link" href="dff" target="_blank">Secret Blog</a>

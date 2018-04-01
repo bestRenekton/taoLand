@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import '../../static/js/changyan.js'
 
 export default {
   data(){
@@ -14,10 +13,7 @@ export default {
     }
   },
   created(){
-     window.changyan.api.config({
-      appid: 'cytu1EELV',
-      conf: 'prod_201c85b98ac4f4d53e714c7c7e6676ed'
-    });
+
   }
 }
 </script>

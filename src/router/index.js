@@ -2,20 +2,34 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 //前台
-import CommonLayout from '../components/commonLayout'
-import Home from '../pages/home'
-import Archives from '../pages/archives'
-import Categories from '../pages/categories'
-import Collections from '../pages/collections'
-import Demo from '../pages/demo'
-import About from '../pages/about'
-import Detail from '../pages/detail'
-
+// import CommonLayout from '../components/commonLayout'
+// import Home from '../pages/home'
+// import Archives from '../pages/archives'
+// import Categories from '../pages/categories'
+// import Collections from '../pages/collections'
+// import Demo from '../pages/demo'
+// import About from '../pages/about'
+// import Detail from '../pages/detail'
+//分包
+const CommonLayout = r => require.ensure([], () => r(require('@/components/commonLayout')), 'chunkname1')
+const Home = r => require.ensure([], () => r(require('@/pages/home')), 'chunkname1')
+const Archives = r => require.ensure([], () => r(require('@/pages/archives')), 'chunkname1')
+const Categories = r => require.ensure([], () => r(require('@/pages/categories')), 'chunkname1')
+const Collections = r => require.ensure([], () => r(require('@/pages/collections')), 'chunkname1')
+const Demo = r => require.ensure([], () => r(require('@/pages/demo')), 'chunkname1')
+const About = r => require.ensure([], () => r(require('@/pages/about')), 'chunkname1')
+const Detail = r => require.ensure([], () => r(require('@/pages/detail')), 'chunkname2')
 //后台
-import Signin from '../pages/admin/signin'
-import ArticleList from '../pages/admin/articleList'
-import ArticleEdit from '../pages/admin/articleEdit'
-import DemoEdit from '../pages/admin/demoEdit'
+// import Signin from '../pages/admin/signin'
+// import ArticleList from '../pages/admin/articleList'
+// import ArticleEdit from '../pages/admin/articleEdit'
+// import DemoEdit from '../pages/admin/demoEdit'
+const Signin = r => require.ensure([], () => r(require('@/pages/admin/signin')), 'chunkname3')
+const ArticleList = r => require.ensure([], () => r(require('@/pages/admin/articleList')), 'chunkname3')
+const ArticleEdit = r => require.ensure([], () => r(require('@/pages/admin/articleEdit')), 'chunkname3')
+const DemoEdit = r => require.ensure([], () => r(require('@/pages/admin/demoEdit')), 'chunkname3')
+
+
 
 Vue.use(VueRouter)
 const routes = [

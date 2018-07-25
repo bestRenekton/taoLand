@@ -12,54 +12,52 @@
 </template>
 
 <script>
-import CommonHeader from "../components/commonHeader"
-import CommonFooter from "../components/commonFooter"
-// import List from "../components/list"
+import CommonHeader from "../components/commonHeader";
+import CommonFooter from "../components/commonFooter";
+import { checkSign } from "../../static/js/public.js";
+
 export default {
-  data(){
-    return{
-      items:[]
-    }
+  mixins: [checkSign],
+  data() {
+    return {
+      items: []
+    };
   },
-  components:{
+  components: {
     CommonHeader,
-    CommonFooter,
-    // List
+    CommonFooter
   },
-  created(){
-    // console.log(this.$store.state.activeIndex)
-    // this.$axios.get('http://localhost:8080/static/goods.json').then((data)=>{
-    // // this.$axios.get('./static/goods.json').then((data)=>{
-    //   this.items=data.data.goods;
-    // })
+  mounted() {
+
   }
-}
+};
 </script>
 
 <style lang="css" scoped>
 .container {
-    width: 100%;
-    margin: 0 auto;
-  }
-  .content {
-    margin-bottom: 1.8rem;
-  }
-  .cont-ul {
-    padding-top: 0.5rem;
-    background-color: #ccc;
-  }
-  .cont-ul::after {
-    content: '';
-    display: block;
-    clear: both;
-    width: 0;
-    height: 0;
-  }
-  .slide-fade-enter-active {
-    transition: all .3s ease;
-  }
-  .slide-fade-enter, .slide-fade-leave-to{
-    transform: translateY(10px);
-    opacity: 0;
-  }
+  width: 100%;
+  margin: 0 auto;
+}
+.content {
+  margin-bottom: 1.8rem;
+}
+.cont-ul {
+  padding-top: 0.5rem;
+  background-color: #ccc;
+}
+.cont-ul::after {
+  content: "";
+  display: block;
+  clear: both;
+  width: 0;
+  height: 0;
+}
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateY(10px);
+  opacity: 0;
+}
 </style>

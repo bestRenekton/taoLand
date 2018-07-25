@@ -2,10 +2,10 @@
   <footer>
     <div class="wrapper">
       <p>本站记录我前端之旅的沿途风景！  Contact me at: 
-        <a target="_blank" href="https://github.com/bestRenekton"><i class="iconfont icon-github"></i></a>
-        <a target="_blank" href="https://www.zhihu.com/people/yang-pang-zi-40/activities"><i class="iconfont icon-zhihu"></i></a>
+        <a href="https://github.com/bestRenekton" target="_blank"><i class="iconfont icon-github"></i></a>
+        <a href="https://www.zhihu.com/people/yang-pang-zi-40/activities" target="_blank"><i class="iconfont icon-zhihu"></i></a>
       </p>
-      <p>本站总访问量165349次，本站访客数66739人次，本文总阅读量6114次</p>
+      <p>欢迎光临本站,当前总访问量{{visit}}次</p>
       <p>taoLand built with vue and node.Theme designed by YYT.</p>
     </div>
     <transition name="slide-fade">
@@ -14,10 +14,13 @@
   </footer>
 </template>
 <script>
+import {webUrl} from "../../static/js/public.js"
+
 export default {
   data(){
     return{
-      isTop:false
+      isTop:false,
+      visit:486
     }
   },
   created(){
@@ -34,8 +37,9 @@ export default {
     },
     toTop:function(){
       //Math.animation = function (from, to, duration, easing, callback) {}
-      Math.animation(document.documentElement.scrollTop, 0,600,'Quart.easeOut', function (value) {
+      Math.animation(document.documentElement.scrollTop, 0,800,'Quart.easeOut', function (value) {
           document.documentElement.scrollTop = value;
+          document.body.scrollTop = value;
       });
     }
   }
@@ -89,9 +93,10 @@ footer{
     }
     .toTop{
       position: fixed;
-      right: 50%;
+      // right: 50%;
+      right: 10%;
       bottom: 50px;
-      margin-right: -690px;
+      // margin-right: -690px;
       font-size: 40px;
       color: #666;
       cursor: pointer;

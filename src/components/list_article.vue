@@ -13,10 +13,10 @@
             <span class="link" :key="tag.id">{{ tag }}</span>
           </template>
         </a>
-        <a v-else-if="type=='categories'" href="javascript:;" @click="anchor(li.category)" class="category">
+        <a v-else-if="type=='categories'" href="javascript:;" class="category">
           <i class="iconfont icon-tubiao13"></i>
           <template v-for="tag in li.category">
-            <span class="link" :key="tag.id">{{ tag }}</span>
+            <span class="link" :key="tag.id" @click="anchor(tag)">{{ tag }}</span>
           </template>
         </a>
       </li>

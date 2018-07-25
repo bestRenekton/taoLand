@@ -6,7 +6,8 @@ html {overflow-y: scroll;}
 :root {overflow-y: auto;overflow-x: hidden;}
 :root body {position: absolute;}
 body {width: 100vw;min-height: 100%;overflow: hidden;background: url(../img/bg.jpg);}
-body.admin{background:url(../img/bg_admin.jpg);background-size: cover;}
+body.admin{background:url('../img/bg_admin.jpg');}
+@media (min-width: 768px) {body.admin{background-size: cover;}}
 /*合并表格的border*/
 /* table { border-collapse: collapse; border-spacing: 0; } */
 img {-ms-interpolation-mode: bicubic; }

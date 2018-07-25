@@ -23,10 +23,11 @@
 </template>
 
 <script>
-import {checkUser} from '../../../static/js/public.js'
+import {checkAdmin} from '../../../static/js/public.js'
+import {webUrl} from "../../../static/js/public.js"
 
   export default {
-    mixins: [checkUser],
+    mixins: [checkAdmin],
     data() {
       return {
         title: '',
@@ -37,19 +38,10 @@ import {checkUser} from '../../../static/js/public.js'
       }
     },
     beforeCreate:function(){
-      // this.$axios.post('/api/admin/checkUser')
-      //   .then((response) => {
-      //     if(response.data.status==0){
-      //       this.$router.replace({name:'index'})
-      //     }
-      //   })
-      //   .catch((reject) => {
-      //     console.log(reject)
-      //   })
     },
     mounted: function () {
       if (this.$route.params.id) {
-        this.$axios.get('/api/demoDetail/' + this.$route.params.id)
+        this.$axios.get(webUrl+'demoDetail/' + this.$route.params.id)
           .then(
             (res) => {
               let article=res.data;
@@ -131,7 +123,7 @@ import {checkUser} from '../../../static/js/public.js'
             // html:document.querySelector('.v-show-content').innerHTML
           }
           
-          this.$axios.post('/api/admin/updateDemo', {demoInformation: obj})
+          this.$axios.post(webUrl+'admin/updateDemo', {demoInformation: obj})
             .then(
               response => {
                 self.$message({
@@ -152,7 +144,7 @@ import {checkUser} from '../../../static/js/public.js'
             // html:document.querySelector('.v-show-content').innerHTML
           }
 
-          this.$axios.post('/api/admin/saveDemo', {demoInformation: obj})
+          this.$axios.post(webUrl+'admin/saveDemo', {demoInformation: obj})
           .then((res)=>{
             if(res.data.status==1){
                 self.$message({

@@ -22,6 +22,7 @@
 <script>
 import List_article from "../components/list_article"
 import List_content from "../components/list_content"
+import {webUrl} from "../../static/js/public.js"
 
 export default {
   data(){
@@ -34,7 +35,7 @@ export default {
     List_content
   },
   created(){
-    this.$axios.post('/api/articleList',{'type':'archives'})
+    this.$axios.post(webUrl+'articleList',{'type':'archives'})
       .then((res)=>{
         this.items=res.data;
       })

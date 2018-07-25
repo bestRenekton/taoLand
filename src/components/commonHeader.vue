@@ -18,22 +18,29 @@
             <el-menu-item index="4"><router-link to="/collections"><i class="iconfont icon-shoucang"></i>Collections</router-link></el-menu-item>
             <el-menu-item index="5"><router-link to="/demo"><i class="iconfont icon-play"></i>Demo</router-link></el-menu-item>
             <el-menu-item index="6"><router-link to="/about"><i class="iconfont icon-meho"></i>About</router-link></el-menu-item>
+            <el-menu-item index="7" v-if="isSignIn===0"><router-link :class="[activeIndex==7?'meBtnOn':'meBtnOff']" to="/sign">Sign In</router-link></el-menu-item>
+            <el-menu-item index="7" v-else-if="isSignIn===1"><router-link :class="[activeIndex==7?'meBtnOn':'meBtnOff']" to="/admin/list">{{nickName}}</router-link></el-menu-item>
+            <el-menu-item index="7" v-else-if="isSignIn===2"><router-link :class="[activeIndex==7?'meBtnOn':'meBtnOff']" to="/visiter">{{nickName}}</router-link></el-menu-item>
           </el-menu>
         </el-col>
         <el-col :xs="4" :sm="0" :md="0" :lg="0" :xl="0" class="">
           <div class="nav-mob">
-            <i class="el-icon-menu " @click="navToggle"></i>
+            <!-- <div v-if="(isSignIn===1||isSignIn===2)&&navMobile" @click="navToggle" class="avatar"></div> -->
+            <img v-if="(isSignIn===1||isSignIn===2)&&navMobile" @click="navToggle" class="avatar" :src="avatar" alt="">
+            <i v-else class="el-icon-menu " @click="navToggle"></i>
             <transition  name="slide-fade">
-              <ul v-if="navMobile" @click='slideUp'>
-                <li><router-link to="/">Home</router-link></li>
-                <li><router-link to="/archives">Archives</router-link></li>
-                <li><router-link to="/categories">Categories</router-link></li>
-                <li><router-link to="/collections">Collections</router-link></li>
-                <li><router-link to="/demo">Demo</router-link></li>
-                <li><router-link to="/about">About</router-link></li>
-              </ul>
+              <div v-if="navMobile" class="content">
+                <ul  @click='slideUp'>
+                  <li><router-link to="/">Home</router-link></li>
+                  <li><router-link to="/archives">Archives</router-link></li>
+                  <li><router-link to="/categories">Categories</router-link></li>
+                  <li><router-link to="/collections">Collections</router-link></li>
+                  <li><router-link to="/demo">Demo</router-link></li>
+                  <li><router-link to="/about">About</router-link></li>
+                  <li><router-link v-if="isSignIn===1||isSignIn===2" to="/visiter">{{nickName}}</router-link></li>
+                </ul>
+              </div>
             </transition >
-
           </div>
         </el-col>
       </el-row>
@@ -46,73 +53,95 @@ export default {
   data() {
     return {
       // activeIndex: '1',
-      navMobile:false
+      navMobile: false
     };
   },
   methods: {
-    handleSelect(key, keyPath){
-      this.$store.commit('changeIndex', key)
+    handleSelect(key, keyPath) {
+      this.$store.commit("changeIndex", key);
     },
-    navToggle(){
-      this.navMobile=this.navMobile?false:true;
+    navToggle() {
+      this.navMobile = this.navMobile ? false : true;
     },
-    slideUp(){
-      this.navMobile=this.navMobile?false:true;
+    slideUp() {
+      this.navMobile = this.navMobile ? false : true;
     }
   },
   // created(){
   //   console.log(this.$store.state.activeIndex)
   // },
-  computed:{
-    activeIndex(){
+  computed: {
+    activeIndex() {
       return this.$store.state.activeIndex;
+    },
+    isSignIn() {
+      return this.$store.state.isSignIn;
+    },
+    nickName() {
+      return localStorage.getItem("nickName");
+    },
+    avatar() {
+      return localStorage.getItem("avatar");
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-  header{
-    background:#2d2d2d;
-    color: #9d9d9d;
-    box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.5);
-    margin-bottom: 10px;
-    .logo{
-      line-height: 40px;font-size: 16px;margin-left: 20px;
-    }
-    .nav-pc{
-      border-bottom: none;float:right;
-      >li{
-        padding: 0;
-        >a{
-          display: inline-block;
-          padding:0 20px;
-          text-align: center;
-          >.iconfont{
-            vertical-align: top;
-            margin: 0 5px 0 0;
-          }
+header {
+  background: #2d2d2d;
+  color: #9d9d9d;
+  box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
+  .logo {
+    line-height: 40px;
+    font-size: 16px;
+    margin-left: 20px;
+  }
+  .nav-pc {
+    border-bottom: none;
+    float: right;
+    > li {
+      padding: 0;
+      > a {
+        display: inline-block;
+        padding: 0 20px;
+        text-align: center;
+        > .iconfont {
+          vertical-align: top;
+          margin: 0 5px 0 0;
         }
       }
-      }
-    .nav-mob{
-      position: relative;
-      z-index: 9999;
-      i{
-        font-size: 24px;
-        position: absolute;
-        right: 6px;
-        top: 7px;
-      }
-      ul{
+    }
+  }
+  .nav-mob {
+    position: relative;
+    z-index: 9999;
+    i {
+      font-size: 24px;
+      position: absolute;
+      right: 6px;
+      top: 7px;
+    }
+    .avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid #9d9d9d;
+      position: absolute;
+      right: 7px;
+      top: 7px;
+    }
+    .content {
+      ul {
         position: absolute;
         right: 5px;
         top: 40px;
-        background:#2d2d2d;
+        background: #2d2d2d;
         color: #9d9d9d;
         border-radius: 0 0 4px 4px;
         box-shadow: 0px 3px 4px 1px rgba(0, 0, 0, 0.5);
-        li{
+        li {
           list-style-type: none;
           padding: 6px 10px;
           text-align: center;
@@ -120,20 +149,39 @@ export default {
         }
       }
     }
-    .slide-fade-enter-active,.slide-fade-leave-active {
-      transition: all .3s ease;
-    }
-    .slide-fade-enter, .slide-fade-leave-to{
-      transform: translateY(-10px);
-      opacity: 0;
+  }
+  .slide-fade-enter-active,
+  .slide-fade-leave-active {
+    transition: all 0.3s ease;
+  }
+  .slide-fade-enter,
+  .slide-fade-leave-to {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+}
+@media (min-width: 768px) {
+  //pc
+  header {
+    margin-bottom: 20px;
+    .logo {
+      line-height: 60px;
+      font-size: 18px;
     }
   }
-  @media (min-width: 768px) {//pc
-    header{
-       margin-bottom: 20px;
-      .logo{line-height: 60px;font-size: 18px;}
-    }
+  .meBtnOff {
+    transition: all 0.3s;
+    background: #3b99fc !important;
+    color: #fff !important;
+    line-height: 60px;
+    vertical-align: top;
   }
-
-
+  .meBtnOn {
+    transition: all 0.3s;
+    background: #3b99fc !important;
+    color: #fff !important;
+    line-height: 58px;
+    vertical-align: top;
+  }
+}
 </style>

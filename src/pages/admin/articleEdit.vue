@@ -29,10 +29,10 @@
 </template>
 
 <script>
-import {checkUser} from '../../../static/js/public.js'
+import {checkAdmin,webUrl} from '../../../static/js/public.js'
 
   export default {
-    mixins: [checkUser],
+    mixins: [checkAdmin],
     data() {
       return {
         title: '',
@@ -40,23 +40,17 @@ import {checkUser} from '../../../static/js/public.js'
         category:[],
         gist: '',
         content: '',
-        categorys:['JavaScript','ES6','jQuery','css','ajax','Vue','node','webpack','NW.js','Electron','easyUI','ECharts','wx','HBuilder']
+        categorys:['JavaScript','ES6','jQuery','css','ajax',
+        'http','https','websocket','apache','Vue','react','react-native',
+        'android','node','mongo','CentOS','webpack',
+        'NW.js','Electron','easyUI','ECharts','wx','HBuilder']
       }
     },
     beforeCreate:function(){
-      // this.$axios.post('/api/admin/checkUser')
-      //   .then((response) => {
-      //     if(response.data.status==0){
-      //       this.$router.replace({name:'index'})
-      //     }
-      //   })
-      //   .catch((reject) => {
-      //     console.log(reject)
-      //   })
     },
     mounted: function () {
       if (this.$route.params.id) {
-        this.$axios.get('/api/articleDetail/' + this.$route.params.id)
+        this.$axios.get(webUrl+'articleDetail/' + this.$route.params.id)
           .then(
             (res) => {
               let article=res.data;
@@ -130,7 +124,7 @@ import {checkUser} from '../../../static/js/public.js'
             // html:document.querySelector('.v-show-content').innerHTML
           }
           
-          this.$axios.post('/api/admin/updateArticle', {articleInformation: obj})
+          this.$axios.post(webUrl+'admin/updateArticle', {articleInformation: obj})
             .then(
               response => {
                 self.$message({
@@ -151,7 +145,7 @@ import {checkUser} from '../../../static/js/public.js'
             // html:document.querySelector('.v-show-content').innerHTML
           }
 
-          this.$axios.post('/api/admin/saveArticle', {articleInformation: obj})
+          this.$axios.post(webUrl+'admin/saveArticle', {articleInformation: obj})
           .then((res)=>{
             if(res.data.status==1){
                 self.$message({

@@ -19,6 +19,8 @@
 
 <script>
 // import List from "../components/list"
+import {webUrl} from "../../static/js/public.js"
+
 export default {
   data(){
     return{
@@ -26,7 +28,7 @@ export default {
     }
   },
   created(){
-    this.$axios.post('/api/demoList')
+    this.$axios.post(webUrl+'demoList')
       .then((res)=>{
         this.items=res.data;
       })

@@ -11,7 +11,7 @@
               <div class="aside">
                 <div class="card">
                   <p class="title">ABOUT ME</p>
-                  <img class="pic" src="http://www.yyyweb.com/demo/hover-effects/img/3.jpg" alt="">
+                  <img class="pic" src="../../static/img/p1.png" alt="">
                   <div class="row">
                     <p>行路有良友，便是捷径。带上我吧，一起去看更大的世界</p>
                     <div class="icons">
@@ -25,12 +25,12 @@
                 <div class="card">
                   <p class="title">FRIENDS</p>
                   <div class="row">
-                    <a class="link" href="dff" target="_blank">xxxxx的博客</a>
-                    <a class="link" href="dff" target="_blank">咕咚</a>
-                    <a class="link" href="dff" target="_blank">Secret Blog</a>
-                    <a class="link" href="dff" target="_blank">Secret Blog</a>
-                    <a class="link" href="dff" target="_blank">Secret Blog</a>
-                    <a class="link" href="dff" target="_blank">Secret Blog</a>
+                    <a class="link" href="https://www.yangyuetao.cn" target="_blank">哈维</a>
+                    <a class="link" href="https://www.yangyuetao.cn" target="_blank">的光和热</a>
+                    <a class="link" href="https://www.yangyuetao.cn" target="_blank">Secret Blog</a>
+                    <a class="link" href="https://www.yangyuetao.cn" target="_blank">Secret Blog</a>
+                    <a class="link" href="https://www.yangyuetao.cn" target="_blank">Secret Blog</a>
+                    <a class="link" href="https://www.yangyuetao.cn" target="_blank">Secret Blog</a>
                   </div>
                 </div>
               </div>
@@ -42,6 +42,7 @@
 
 <script>
 import List_home from "../components/list_home"
+import {webUrl} from "../../static/js/public.js"
 export default {
   data(){
     return{
@@ -52,9 +53,9 @@ export default {
     List_home,
   },
   created(){
-    this.$axios.post('/api/articleList')
+    this.$axios.post(webUrl+'articleList')
       .then((res)=>{
-        this.items=res.data;
+        this.items=res.data.reverse();
       })
   }
 }

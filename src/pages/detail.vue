@@ -7,7 +7,7 @@
         <span class="category"><i class="iconfont icon-tubiao13"></i><span v-for="tag in category" :key="tag.id">{{tag}}</span></span>
       </div>
       <div class="detail" v-if="content">
-          <mavon-editor v-model="content" default_open="preview" :toolbarsFlag="false" :subfield="false"></mavon-editor>
+          <mavon-editor v-model="content" default_open="preview" defaultOpen= "preview"  :toolbarsFlag="false" :subfield="false"></mavon-editor>
           <div class="footer">
             <div @click="toGo(prev._id)" class="btn prev"><p>←上一篇</p><p>{{prev.title?prev.title:'没有更多'}}</p></div>
             <div @click="toGo(next._id)" class="btn next"><p>下一篇→</p><p>{{next.title?next.title:'没有更多'}}</p></div>

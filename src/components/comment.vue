@@ -3,7 +3,7 @@
       <div v-if="isSignIn===0" @click="signIn" class="signIn">登录留言吧~~</div>
       <div v-else class="part part_input">
         <div class="input_top">
-          <div class="img"><img class="avatar"  :src="avatar" alt=""><p class="from_uname">{{nickName}}</p></div>
+          <div class="img"><img class="avatar"  :src="avatar!='null'?avatar:imgDefault" alt=""><p class="from_uname">{{nickName}}</p></div>
           <div class="text"><textarea v-model="submitTxt" class="textarea"></textarea></div>
         </div>
         <div class="input_down">
@@ -14,7 +14,7 @@
         <p class="output_header">全部评论 <span class="total">{{comments.length}}</span> 条</p>
         <div class="output_body">
           <div v-for="(comment,index) in comments" :key="comment.id" class="floor">
-            <div class="floor_l"><img class="avatar" :src="comment.avatar" alt=""><p class="from_uname">{{comment.from_uname}}</p></div>
+            <div class="floor_l"><img class="avatar" :src="comment.avatar!='null'?comment.avatar:imgDefault" alt=""><p class="from_uname">{{comment.from_uname}}</p></div>
             <div class="floor_r">
               <div class="comment">
                 <div class="comment_main">{{comment.content}}</div>
@@ -24,14 +24,14 @@
                 </div>
                 <div v-if="comment.child.length>0" class="comment_replay__main">
                   <div v-for="(replay,index2) in comment.child" :key="index2" class="comment_replay__floor">
-                    <div class="floor_l"><img class="avatar" :src="replay.avatar" alt=""></div>
+                    <div class="floor_l"><img class="avatar" :src="replay.avatar!='null'?replay.avatar:imgDefault" alt=""></div>
                     <div class="floor_r">
                       <p class="content">
                         <span class="from_name">{{replay.from_uname}}</span>回复<span class="to_name">{{replay.to_uname}}</span> ：
                         {{replay.content}}
                       </p>
                       <div class="footer">
-                        <span class="date">{{comment.date}}</span>
+                        <span class="date">{{replay.date}}</span>
                         <a @click="setTextarea(index,true,replay.from_uid,replay.from_uname)" href="javascript:;" class="replay_btn">回复</a>
                       </div>
                     </div>
@@ -54,7 +54,7 @@
 
 <script>
 import { Guid, getDate, webUrl } from "../../static/js/public.js";
-// import avatar from "../../static/img/avatar.png";
+import imgDefault from "../../static/img/avatar.png";
 
 export default {
   props: ["comments", "articleId"],
@@ -64,7 +64,8 @@ export default {
       avatar: null,
       name: null,
       token: null,
-      submitTxt: ""
+      submitTxt: "",
+      imgDefault: imgDefault
     };
   },
   computed: {

@@ -24,23 +24,23 @@ router.post('/api/admin/signUp', (req, res) => {
                 if (docs.length > 0) {
                     res.send({ 'status': 0, 'msg': '昵称已注册' });
                 } else {
-                    const fs = require('fs');
-                    let pathImg='./upload/avatar/'+Date.now() + '.png'
-                    let base64 = req.body.avatar.replace(/^data:image\/\w+;base64,/, "");
-                    let dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
-                    // console.log('dataBuffer是否是Buffer对象：' + Buffer.isBuffer(dataBuffer));
-                    fs.writeFile(pathImg, dataBuffer, function (err) {//用fs写入文件
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            console.log('写入成功！');
-                        }
-                    })
+                    // const fs = require('fs');
+                    // let pathImg='./upload/avatar/'+Date.now() + '.png'
+                    // let base64 = req.body.avatar.replace(/^data:image\/\w+;base64,/, "");
+                    // let dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
+                    // // console.log('dataBuffer是否是Buffer对象：' + Buffer.isBuffer(dataBuffer));
+                    // fs.writeFile(pathImg, dataBuffer, function (err) {//用fs写入文件
+                    //     if (err) {
+                    //         console.log(err);
+                    //     } else {
+                    //         console.log('写入成功！');
+                    //     }
+                    // })
                     let newUser = new db.User({
                         name: req.body.name,
                         password: req.body.password,
                         nickName: req.body.nickName,
-                        avatar: './static' + pathImg.slice(1),
+                        avatar: null,
                         // type: req.body.type
                         type: 2//1为管理员，2为游客,写死，新建管理员数据库直接改
                     });

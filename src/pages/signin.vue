@@ -21,13 +21,10 @@
 </template>
 
 <script>
-import { webUrl, imgTo64 } from "../../static/js/public.js";
-import imgDefault from "../../static/img/avatar.png";
+import { webUrl } from "../../static/js/public.js";
 
 export default {
-  created() {
-    // console.log(urlTo64(imgDefault));
-  },
+  created() {},
   data() {
     return {
       status: 1, //1登录,2注册，3loading
@@ -55,63 +52,54 @@ export default {
     signUp: function() {
       //注册
       let that = this;
-      let image = new Image();
 
-      image.src = imgDefault;
-      image.setAttribute("crossOrigin", "anonymous"); //允许图片跨域请求、必须后台也允许
-      image.onload = () => {
-        let base64 = imgTo64(image);
-        // console.log(base64);
-
-        if (that.name.length > 20) {
+      if (that.name.length > 20) {
+        that.$message({
+          type: "warning",
+          message: "登录账号太长!"
+        });
+        return;
+      }
+      if (that.nickName.length > 12) {
+        that.$message({
+          type: "warning",
+          message: "昵称太长!"
+        });
+        return;
+      }
+      if (
+        that.name.length == 0 ||
+        that.nickName.length == 0 ||
+        that.password.length == 0
+      ) {
+        that.$message({
+          type: "warning",
+          message: "有未填写项!"
+        });
+        return;
+      }
+      that.$axios
+        .post(webUrl + "admin/signUp", {
+          name: that.name,
+          password: that.password,
+          nickName: that.nickName
+        })
+        .then(response => {
           that.$message({
-            type: "warning",
-            message: "登录账号太长!"
+            type: "success",
+            message: response.data.msg
           });
-          return;
-        }
-        if (that.nickName.length > 12) {
-          that.$message({
-            type: "warning",
-            message: "昵称太长!"
-          });
-          return;
-        }
-        if (
-          that.name.length == 0 ||
-          that.nickName.length == 0 ||
-          that.password.length == 0
-        ) {
-          that.$message({
-            type: "warning",
-            message: "有未填写项!"
-          });
-          return;
-        }
-        that.$axios
-          .post(webUrl + "admin/signUp", {
-            name: that.name,
-            password: that.password,
-            nickName: that.nickName,
-            avatar: base64
-          })
-          .then(response => {
-            that.$message({
-              type: "success",
-              message: response.data.msg
-            });
-            if (response.data.status == 1) {
-              that.back();
-            }
-          })
-          .catch(reject => {
-            console.log(reject);
-          });
-      };
+          if (response.data.status == 1) {
+            that.back();
+          }
+        })
+        .catch(reject => {
+          console.log(reject);
+        });
     },
     signIn: function() {
       //登录
-      let that=this;
+      let that = this;
       this.$axios
         .post(webUrl + "admin/signIn", {
           name: this.name,

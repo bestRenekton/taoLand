@@ -16,7 +16,7 @@
             </el-col>
             <el-col :xs="20" :sm="18" :md="18" :lg="18" :xl="18">
               <label for="upLoad">
-                <img :src="avatar" alt="" class="avatar">
+                <img :src="avatar!='null'?avatar:imgDefault" alt="" class="avatar">
               </label>
               <input @change="upLoad" id="upLoad" type="file">
               <p class="tips">tips:请上传2M以内JPG/PNG格式的图片，比例最好1:1</p>
@@ -35,6 +35,8 @@
 
 <script>
 import { imgTo64, checkVisiter, webUrl } from "../../../static/js/public.js";
+import imgDefault from "../../../static/img/avatar.png";
+
 export default {
   mixins: [checkVisiter],
   data() {
@@ -42,7 +44,8 @@ export default {
       nickName: null,
       avatar: null,
       name: null,
-      token: null
+      token: null,
+      imgDefault:imgDefault
     };
   },
   created() {

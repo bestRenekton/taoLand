@@ -77,7 +77,7 @@ router.post('/api/admin/signIn', (req, res) => {
                     res.status(500).send()
                     return
                 }
-                res.send({ 'status': 1, 'msg': '登陆成功', 'token': docs[0].token,'user_name': docs[0]["name"], 'type': docs[0]["type"], 'nickName': docs[0]["nickName"], 'avatar': docs[0]["avatar"]  })
+                res.send({ 'status': 1, 'msg': '登陆成功', 'token': docs[0].token, 'user_name': docs[0]["name"], 'type': docs[0]["type"], 'nickName': docs[0]["nickName"], 'avatar': docs[0]["avatar"] })
             })
         } else {
             res.send({ 'status': 0, 'msg': '登录失败' });
@@ -111,27 +111,39 @@ router.post('/api/admin/updateUser', (req, res) => {
             return
         }
         if (docs.length > 0) {
-            const fs = require('fs');
-            let pathImg='./upload/avatar/'+Date.now() + '.png'
-            let base64 = req.body.avatar.replace(/^data:image\/\w+;base64,/, "");
-            let dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
-            // console.log('dataBuffer是否是Buffer对象：' + Buffer.isBuffer(dataBuffer));
-            fs.writeFile(pathImg, dataBuffer, function (err) {//用fs写入文件
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log('写入成功！');
-                    docs[0].nickName = req.body.nickName;
-                    docs[0].avatar = './static' + pathImg.slice(1);
-                    db.User(docs[0]).save(function (err) {
-                        if (err) {
-                            res.status(500).send()
-                            return
-                        }
-                        res.send({ 'status': 1, 'msg': '更新成功','user_name': docs[0]["name"], 'type': docs[0]["type"], 'nickName': docs[0]["nickName"], 'avatar': docs[0]["avatar"] })
-                    })
-                }
-            })
+            if (req.body.avatar == "null" || req.body.avatar.indexOf("avatar")) {
+                docs[0].nickName = req.body.nickName;
+                docs[0].avatar = req.body.avatar;
+                db.User(docs[0]).save(function (err) {
+                    if (err) {
+                        res.status(500).send()
+                        return
+                    }
+                    res.send({ 'status': 1, 'msg': '更新成功', 'user_name': docs[0]["name"], 'type': docs[0]["type"], 'nickName': docs[0]["nickName"], 'avatar': docs[0]["avatar"] })
+                })
+            } else {
+                const fs = require('fs');
+                let pathImg = './upload/avatar/' + Date.now() + '.png'
+                let base64 = req.body.avatar.replace(/^data:image\/\w+;base64,/, "");
+                let dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
+                // console.log('dataBuffer是否是Buffer对象：' + Buffer.isBuffer(dataBuffer));
+                fs.writeFile(pathImg, dataBuffer, function (err) {//用fs写入文件
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log('写入成功！');
+                        docs[0].nickName = req.body.nickName;
+                        docs[0].avatar = './static' + pathImg.slice(1);
+                        db.User(docs[0]).save(function (err) {
+                            if (err) {
+                                res.status(500).send()
+                                return
+                            }
+                            res.send({ 'status': 1, 'msg': '更新成功', 'user_name': docs[0]["name"], 'type': docs[0]["type"], 'nickName': docs[0]["nickName"], 'avatar': docs[0]["avatar"] })
+                        })
+                    }
+                })
+            }
         } else {
             res.send({ 'status': 0, 'msg': '更新失败' })
         }

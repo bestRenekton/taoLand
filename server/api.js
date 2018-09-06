@@ -3,6 +3,8 @@ const db = require('./db');
 const express = require('express');
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const path = require('path');
+
 
 /************** 创建(create) 读取(get) 更新(update) 删除(delete) **************/
 // 注册
@@ -24,18 +26,6 @@ router.post('/api/admin/signUp', (req, res) => {
                 if (docs.length > 0) {
                     res.send({ 'status': 0, 'msg': '昵称已注册' });
                 } else {
-                    // const fs = require('fs');
-                    // let pathImg='./upload/avatar/'+Date.now() + '.png'
-                    // let base64 = req.body.avatar.replace(/^data:image\/\w+;base64,/, "");
-                    // let dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
-                    // // console.log('dataBuffer是否是Buffer对象：' + Buffer.isBuffer(dataBuffer));
-                    // fs.writeFile(pathImg, dataBuffer, function (err) {//用fs写入文件
-                    //     if (err) {
-                    //         console.log(err);
-                    //     } else {
-                    //         console.log('写入成功！');
-                    //     }
-                    // })
                     let newUser = new db.User({
                         name: req.body.name,
                         password: req.body.password,
@@ -111,7 +101,7 @@ router.post('/api/admin/updateUser', (req, res) => {
             return
         }
         if (docs.length > 0) {
-            if (req.body.avatar == "null" || req.body.avatar.indexOf("avatar")) {
+            if (req.body.avatar == "null" || req.body.avatar.indexOf("avatar") > -1) {//不需更新图片
                 docs[0].nickName = req.body.nickName;
                 docs[0].avatar = req.body.avatar;
                 db.User(docs[0]).save(function (err) {
@@ -121,19 +111,20 @@ router.post('/api/admin/updateUser', (req, res) => {
                     }
                     res.send({ 'status': 1, 'msg': '更新成功', 'user_name': docs[0]["name"], 'type': docs[0]["type"], 'nickName': docs[0]["nickName"], 'avatar': docs[0]["avatar"] })
                 })
-            } else {
+            } else {//需要更新图片
                 const fs = require('fs');
-                let pathImg = './upload/avatar/' + Date.now() + '.png'
+                let D = Date.now();
+                let saveImg = path.join(__dirname, '../static/upload/avatar/' + D + '.png');//api.js的上级的static下
+                let pathImg = './static/upload/avatar/' + D + '.png';//返前台路径目录
                 let base64 = req.body.avatar.replace(/^data:image\/\w+;base64,/, "");
                 let dataBuffer = new Buffer(base64, 'base64'); //把base64码转成buffer对象，
-                // console.log('dataBuffer是否是Buffer对象：' + Buffer.isBuffer(dataBuffer));
-                fs.writeFile(pathImg, dataBuffer, function (err) {//用fs写入文件
+                fs.writeFile(saveImg, dataBuffer, function (err) {//用fs写入文件
                     if (err) {
                         console.log(err);
                     } else {
-                        console.log('写入成功！');
+                        console.log('写入成功！', saveImg);
                         docs[0].nickName = req.body.nickName;
-                        docs[0].avatar = './static' + pathImg.slice(1);
+                        docs[0].avatar = pathImg;
                         db.User(docs[0]).save(function (err) {
                             if (err) {
                                 res.status(500).send()

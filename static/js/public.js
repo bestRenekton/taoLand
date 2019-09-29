@@ -1,5 +1,9 @@
 //ip
-export const webUrl = '/api/'
+// export const webUrl = '/api/'
+// export const webUrl = 'localhost:8088/api/';
+export const webUrl = 'http://xxxxx:8088/api/';
+
+
 
 
 

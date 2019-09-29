@@ -30,6 +30,9 @@
 	+ `npm run dev`
 + 打开`http://127.0.0.1:8080`
 
+## 部署docker
++ 参考 [taoland_docker分支](https://github.com/bestRenekton/taoLand/tree/taoland_docker)
+
 ## tips
 + mongoDB可视化工具，Robo3T客户端比较好用
 + 留言系统的数据库设计可能有问题，毕竟自己的后端项目写的不多，欢迎后端朋友指导...
